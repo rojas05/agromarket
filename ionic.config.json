@@ -1,0 +1,7 @@
+{
+  "name": "agro_market",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
