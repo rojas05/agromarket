@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" routerLink="/home/account">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="header">
+    
+      <div class="div-redondeado">
+        <h2>¡En AgroMarket tus datos estan seguros!</h2>
+        <p>puedes cambiar tu unformacion cuando sea necesario</p>
+      </div>
+
+  </div>
+
+  <form id="form">
+    <app-input Type="name" Text="Pepito Molina" Icon="person-outline" Label="Nombre Completo"></app-input>
+    <app-input Type="text" Text="Vereda Villanueva/Cra #6 -53" Icon="location-outline" Label="Direccion"></app-input>
+    <app-input Type="tel" Text="3337465487" Icon="call-outline" Label="Telefono"></app-input>
+    <app-input Type="Email" Text="miCorreo@agroMarket.com" Icon="mail-outline" Label="correo electronico"></app-input>
+    <app-input Type="password" Text="Mi contrasena segura" Icon="key-outline" Label="contrasena"></app-input>
+    <ion-button expand="block" Text="round" routerLink="/home/account">guardar cambios</ion-button>
+  </form>
+
+</ion-content>
+

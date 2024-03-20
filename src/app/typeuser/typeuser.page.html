@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>perfil de usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="header">
+    
+      <ion-card #card class="div-redondeado">
+        <h2>¡Espera! ¿Cómo quieres empezar?</h2>
+        <p>De igual manera, podrás interactuar y cambiar de rol cuando lo necesites.</p>
+      </ion-card>
+
+      <div class="div-typeUser">
+        <h3>Vendedor</h3>
+        <p>Para que vendas todos tus productos, necesitamos algunos datos adicionales.</p>
+
+        <form id="form">
+          <app-input Type="text" PlaceHolder="junto a la escuela" Icon="navigate-circle-outline" Label="Indicaciones de dirección."></app-input>
+          <app-input Type="text" PlaceHolder="Granja el pollón" Icon="business-outline" Label="Finca/Empresa"></app-input>
+          <ion-button expand="block" shape="round" >ingresar</ion-button>
+        </form>
+      </div>
+
+      <div class="div-typeUser">
+        <h3>Comprador</h3>
+        <p>Para que tus productos lleguen a tiempo, necesitamos algunos datos adicionales.</p>
+
+        <form id="form">
+          <app-input Type="text" PlaceHolder="junto a la escuela" Icon="navigate-circle-outline" Label="Indicaciones de dirección."></app-input>
+          <ion-button expand="block" shape="round" >ingresar</ion-button>
+        </form>
+      </div>
+
+      <div class="div-typeUser">
+        <h3>Repartidor</h3>
+        <p>Ganarte algo pa'la gasolina, pero antes ingresa las veredas por las cuales transitas. </p>
+
+        <form id="form">
+          <app-input Type="text" PlaceHolder="Villanueva, Mondeyal, Cienega" Icon="navigate-circle-outline" Label="Ruta"></app-input>
+          <ion-button expand="block" shape="round" >ingresar</ion-button>
+        </form>
+      </div>
+
+  </div>
+
+  
+
+</ion-content>

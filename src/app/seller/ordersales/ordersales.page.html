@@ -1,0 +1,56 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" routerLink="/">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" routerLink="/">
+        siguiente
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+
+  <form id="form">
+    <div id="header">
+      
+      <h1>Pedido</h1>
+
+      <div id="div-img-text">
+        <div id="div-img">
+          <ion-avatar id="img1">
+            <img src="assets/img/sales.png" alt="">
+          </ion-avatar>
+          <ion-avatar id="imag2">
+            <img src="assets/img/market.png" alt="">
+          </ion-avatar>
+        </div>
+      </div>
+      
+  
+    </div>
+    <app-input Type="Text" Text="Platanos verdes" Icon="nutrition-outline" Label="Nombre del producto"></app-input>
+    <app-input Type="Text" Text="Platanos verdes economicos y frescos" Icon="text-outline" Label="descripcion"></app-input>
+    <app-input Type="Number" Text="5" Icon="file-tray-stacked-outline" Label="Cantidad"></app-input>
+    <app-input Type="Number" Text="5.000" Icon="cash-outline" Label="precio por unidad"></app-input>
+    <app-input Type="Number" Text="10.000" Icon="cash-outline" Label="precio total"></app-input>
+    <app-input Type="Text" Text="comestibles" Icon="pricetags-outline" Label="categoria"></app-input>
+    <div id="div-nota">
+      <label> <i>*Nota del usuario </i>  <br> <br>buen dia, los quiero frescos y para el dia martes <br> <br> </label>
+      <app-input Type="Text" PlaceHolder="Con mucho gusto" Icon="send" Label="categoria"></app-input>
+    </div>
+    <ion-button expand="block" shape="round" routerLink="/">despachar</ion-button><br>
+    <div id="div-nota">
+      <ion-button expand="block" shape="round" routerLink="/">cancelar</ion-button>
+      <label> <i>*Justifica por que no tomaras el pedido</i></label> <br>
+      <app-input Type="Text" PlaceHolder="lo siento mucho" Icon="send" Label="Justificacion"></app-input>
+    </div>
+  </form>
+
+</ion-content>

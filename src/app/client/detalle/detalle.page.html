@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>AgroMarket</ion-title>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/mainclient">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons> 
+    <ion-buttons slot="end">
+      <ion-button routerLink="/updateporfile">
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="div-redondeado">
+    <div class="img">
+      <app-slide></app-slide>
+    </div>
+    <div class="price">
+        <p id="price">
+          precio: <br>
+          10.000
+        </p>
+        <p id="stok">
+          disponibles: <br>
+          20
+        </p>
+    </div>
+
+    <h1>
+      platano
+    </h1>
+
+    </div>
+
+    <ion-item>
+      <ion-label>
+        <p>descripcion</p>
+        <h2>los mejores platanos, produccion 100% organico</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <p>categoria</p>
+        <h2>comestibles</h2>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <p>vendedor</p>
+        <h2>granja el pollon</h2>
+      </ion-label>
+      <ion-label>
+        <p>ubicacion</p>
+        <h2>vereda villanueva</h2>
+      </ion-label>
+    </ion-item>
+
+    <div class="div-addCard">
+      <ion-item>
+        <app-input Type="Email" PlaceHolder="buen dia..." Icon="nota" Label="nota al vendedor"></app-input>
+        <ion-button>
+          <ion-icon name="cart-outline"></ion-icon>
+          <ion-label>agregar</ion-label>
+        </ion-button>
+      </ion-item>
+    </div>
+
+</ion-content>

@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mis Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div id="header">
+    <div class="div-redondeado">
+
+      <h1>¡Tienes <br> {{ordesrTotal}} <br> pedidos sin atender!</h1>
+  
+    </div>
+    
+      <ion-list>
+
+        <ion-item lines="none" class="ion-no-padding">
+          <div id="div-content">
+            <ion-label>Pedidos sin atender</ion-label>
+          </div>
+        </ion-item>
+
+        <ion-item *ngFor="let p of viewOrders" lines="none" routerLink="/ordersales/:{{p.id}}">
+          <div id="div-content">
+            <ion-avatar>
+              <ion-img src="{{p.img}}"></ion-img>
+            </ion-avatar>
+            <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
+            <div id="div-circle">
+              <ion-label>pedios <br>{{p.id}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item lines="none" class="view-plus">
+          <ion-button (click)="plusOrders()">
+              ver todos
+          </ion-button>
+      </ion-item>
+
+
+
+        <ion-item lines="none" class="ion-no-padding">
+          <div id="div-content">
+            <ion-label>pedidos por despachar</ion-label>
+          </div>
+        </ion-item>
+
+        <ion-item *ngFor="let p of viewOrderSale" lines="none">
+          <div id="div-content">
+            <ion-avatar>
+              <ion-img src="{{p.img}}"></ion-img>
+            </ion-avatar>
+            <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
+            <div id="div-circle">
+              <ion-label>pedios <br>{{p.id}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item lines="none" class="view-plus">
+          <ion-button (click)="plusOrdersSale()">
+              ver todos
+          </ion-button>
+      </ion-item>
+
+
+      </ion-list>  
+  </div>
+
+</ion-content>

@@ -1,0 +1,90 @@
+ion-toolbar{
+    --background:  rgba(255, 208, 0, 0.8);
+    ion-title{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+ion-content{
+    --background: #ffffff;
+    .div-redondeado {
+        align-items: center;
+        border-radius:0px 0px 50px 50px;
+        background-color: rgba(255, 223, 79, 0.554);
+        padding-top: 10px;
+        padding-bottom: 20px;
+
+        .img{
+            padding: 10px;
+            width: 100%;
+            height: fit-content;
+            background: #ffb700;
+            margin-bottom: 10px;
+            
+            ion-avatar{
+                --border-radius: 5px;
+                width: 150px;
+                height: 150px;
+            }
+
+            h5{
+                margin-top: 0px;
+                text-align: center;
+                width: 100%;
+            }
+
+            h2{
+                margin-top: 1px;
+                width: 100%;
+                align-content: center;
+            }
+        }
+
+        .price{
+            padding: 1px;
+            width: 100%;
+            background: #ffb700;
+
+            ion-item{
+                --background: none;
+            }
+
+            #price{
+                border-left:solid 1px;
+                width: 50%;
+                text-align: center; 
+                float: right;
+            
+            }
+
+            #stok{
+                border-right:solid 1px;
+                width: 50%;
+                text-align: center; 
+            }
+        }
+
+        h1{
+            width: 90%;
+            text-align: center;
+            border-bottom: solid 2px;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+    }
+
+
+    .div-addCard{
+        margin-top: 10px;
+        padding: 20px;
+        background: #ffb700;
+        border-radius:50px 0px 0px 50px;
+
+        ion-item{
+            border: solid 1px;
+            border-radius: 50px;
+        }
+    }
+
+}

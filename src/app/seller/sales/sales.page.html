@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <p>Mis Ventas</p>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div id="header">
+    <div class="div-redondeado">
+    <div class="sales">
+      <h5>Ventas</h5>
+        <h2>1500.000</h2>
+    </div>
+    <div class="money">
+        <h5>ingresos</h5>
+        <h2>1500.000</h2>
+    </div>
+    </div>
+
+      <ion-list>
+
+        <ion-item lines="none" id="sales-top" class="ion-no-padding">
+          <div id="div-content">
+            <ion-label>Lo mas vendido</ion-label>
+          </div>
+        </ion-item>
+
+        <ion-item *ngFor="let p of productos" lines="none">
+          <div id="div-content">
+            <ion-avatar>
+              <ion-img src="{{p.img}}"></ion-img>
+            </ion-avatar>
+            <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
+            <div id="div-circle">
+              <ion-label>pedios <br>{{p.id}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item lines="none" id="todo" class="ion-no-padding">
+          <div id="div-content">
+            <ion-label>Todos los Productos</ion-label>
+          </div>
+        </ion-item>
+
+        <ion-item *ngFor="let p of productos" lines="none">
+          <div id="div-content">
+            <ion-avatar>
+              <ion-img src="{{p.img}}"></ion-img>
+            </ion-avatar>
+            <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
+            <div id="div-circle">
+              <ion-label>pedios <br>{{p.id}}</ion-label>
+            </div>
+          </div>
+        </ion-item>
+
+      </ion-list>
+
+  </div>
+
+
+  
+</ion-content>
