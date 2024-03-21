@@ -58,6 +58,14 @@ const routes: Routes = [
   {
     path: 'detalle',
     loadChildren: () => import('./client/detalle/detalle.module').then( m => m.DetallePageModule)
+  },
+  {
+    path: 'card',
+    loadChildren: () => import('./client/card/card.module').then( m => m.CardPageModule)
+  },
+  {
+    path: 'shopping',
+    loadChildren: () => import('./client/shopping/shopping.module').then( m => m.ShoppingPageModule)
   }
 ];
 

@@ -1,0 +1,28 @@
+ion-toolbar{
+    --background:  #f7da57db;
+}
+
+ion-content{
+    --background: #ffffff;
+   .div-info{
+    width: 100%;
+    height: fit-content;
+    padding: 20px;
+    margin-bottom: 30px;
+    background: rgb(236, 159, 64);
+
+    p{
+        color: #ffffff;
+        font-size: 25px;
+    }
+
+    ion-button{
+        float: right;
+    }
+   }
+
+   ion-list{
+    --width: 100%;
+    float: right;
+   }
+}

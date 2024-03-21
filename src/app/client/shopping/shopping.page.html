@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mis compras</ion-title>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/mainclient">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="div-info">
+    
+    <p>Sin llegar</p>
+
+    <ion-tab-bar slot="bottom" color="none">
+      <ion-tab-button>
+        <ion-icon name="albums-outline"></ion-icon>
+        <ion-label>Sin llegar</ion-label> 
+      </ion-tab-button>
+      <ion-tab-button tab="sales">
+        <ion-icon name="bag-handle-outline"></ion-icon>
+        <ion-label>exitosa</ion-label> 
+      </ion-tab-button>
+    </ion-tab-bar>
+   
+  </div>
+
+  <ion-list>
+    <ion-item (click)="startScan()">
+      <ion-label>
+        <p>producto</p>
+        <h2>platano verdes</h2>
+      </ion-label>
+      <ion-label>
+        <p>cantidad</p>
+        <h2>38</h2>
+      </ion-label>
+      <ion-label>
+        <p>total</p>
+        <h2>38.000</h2>
+      </ion-label>
+      <br>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
