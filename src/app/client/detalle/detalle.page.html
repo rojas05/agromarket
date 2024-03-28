@@ -63,4 +63,20 @@
   </ion-item>
 </ion-list>
 
+<div class="div-add">
+  <div class="div-cantidad">
+    <p>Cantidad</p>
+      <ion-item no-lines>
+        <ion-button (click)="onMinius()"><ion-icon name="remove-outline"></ion-icon></ion-button>
+        <div no-lines class="div-input">
+          <ion-input value="{{cantidad}}"></ion-input>
+        </div>                   
+        <ion-button (click)="onPlus()"><ion-icon name="add-outline"></ion-icon></ion-button>
+      </ion-item>
+  </div>
+  <app-input Type="text" PlaceHolder="buen dia..." Icon="send-outline" Label="Mensaje"></app-input>
+
+  <ion-button>Agregar al carrito</ion-button>
+</div>
+
 </ion-content>

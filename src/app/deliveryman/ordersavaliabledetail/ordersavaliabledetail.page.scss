@@ -1,0 +1,19 @@
+ion-toolbar{
+	--background: rgba(250, 211, 121, 0.8);
+}
+ion-content {
+	--background: rgba(252, 214, 124, 0.8);
+	
+	ion-card{
+		background: rgb(255, 255, 255);
+		padding: 10px;
+	}
+	ion-item{
+		--background: rgb(255, 255, 255);
+	}
+
+	ion-button{
+		width: 50%;
+		margin-left: 25%;
+	}
+}

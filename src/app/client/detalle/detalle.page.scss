@@ -75,16 +75,50 @@ ion-content{
     }
 
 
-    .div-addCard{
+    .div-add{
         margin-top: 10px;
+        margin-left: 20px;
         padding: 20px;
         background: #ffb700;
-        border-radius:50px 0px 0px 50px;
+        border-radius:50px 0px 0px 0px;
 
-        ion-item{
-            border: solid 1px;
-            border-radius: 50px;
+        .div-cantidad{
+            width: fit-content;
+            border: solid;
+            border-radius: 10px;
+            margin-left: 20%;
+            margin-bottom: 10px;
+
+            p{
+                width: 100%;
+                text-align: center;
+            }
+
+            ion-item{
+                --padding-top: 5px;
+                --padding-bottom: 5px;
+                width: fit-content;
+                border-radius: 5px;
+            }
+
+
+            .div-input{
+                height: fit-content;
+                background: #c4c4c4;
+                width: 60px;
+                border-radius: 5px;
+                ion-input{
+                    text-align: center;
+                }
+        
+            }
+
         }
+
+        ion-button{
+            width: 100%;
+        }
+    
     }
 
 }

@@ -1,0 +1,40 @@
+ion-content{
+    --background: rgba(251, 251, 251, 0.1);
+
+    .code{
+        width: 100%;
+    
+    }
+
+    .center-code{
+        border: solid 5px;
+        width: 80%;
+        height: 40%;
+        margin-top: 30%;
+        margin-left: 10%;
+        border-radius: 20px;
+        border-color: #FFD700;;
+    }
+
+    h2{
+        width: 100%;
+        text-align: center;
+        color: #FFD700;
+    }
+
+    .buttons{
+        margin-left: 10%;
+        width: 80%;
+        ion-button{
+            width: 48%;
+        }
+    }
+
+    ion-fab-button{
+        margin-top: 20px;
+        width: 15%;
+        margin-left: 42%;
+    }
+
+
+}

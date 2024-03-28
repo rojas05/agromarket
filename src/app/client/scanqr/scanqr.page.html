@@ -1,0 +1,25 @@
+<ion-content [fullscreen]="true">
+
+  <h2>codido de pedido <br>{{resultQr}}</h2>
+
+  <div class="center-code">
+
+  </div>
+
+  <h2>Escanea el codigo para completar tu compra</h2>
+
+  <div class="buttons">
+    <ion-button routerLink="/shopping">cancelar</ion-button>
+    <ion-button>confirmar</ion-button>
+  </div>
+
+  <ion-fab-button (click)="enableTorch()"><ion-icon name="flash-outline"></ion-icon></ion-fab-button>
+
+  <ion-toast
+    [isOpen]="isToastOpen"
+    message="codigo leido correctamente"
+    [duration]="10000"
+    (didDismiss)="setOpen(false)"
+  ></ion-toast>
+
+</ion-content>

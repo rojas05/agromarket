@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Pedidos disponibles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="encabezado">
+    <ion-icon name="compass-outline"></ion-icon>
+    <p>Pedidos selecionados para tu ruta</p>
+    <ion-button>editar</ion-button>
+  </div>
+
+
+  <ion-list>
+    <ion-item class="item-content" lines="none">
+      <ion-card routerLink="/ordersavaliabledetail">
+        <ion-item class="item-info" lines="none">
+          <ion-label>
+            <p>Producto</p>
+            <h2>platano</h2>
+          </ion-label>
+          <ion-label>
+            <p>direccion</p>
+            <h2>vdaVillanueva</h2>
+          </ion-label>
+          <ion-label>
+            <p>presupuesto</p>
+            <h2>$8.000</h2>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>

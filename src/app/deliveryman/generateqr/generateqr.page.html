@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>confirmar entrega</ion-title>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/maindelivery/ordersAvaliable">
+        <ion-icon name="close-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-button routerLink="/maindelivery/ordersTaken">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="encabezado">
+    <h2>Escanea el codigo</h2>
+    <h5>de esta manera se confirmara la llegada del pedido</h5>
+    <div class="qr">
+      <qr-code value="Yo world none" size="200" errorCorrectionLevel="M" lightColor="#FFD700" darkColor="#ffffff"></qr-code>
+    </div>
+  </div>
+
+  <h2>---- tambien puedes ----</h2>
+
+  <div class="pie">
+    <h2>Ingresa el codigo</h2>
+    <h5>de esta manera tambien se puede confirmar la llegada del pedido</h5>
+    <div class="qr">
+      <app-input Type="Text" PlaceHolder="f54g65df4g" Icon="text" Label="codigo de confirmacon"></app-input>
+    </div>
+  </div>
+  
+</ion-content>

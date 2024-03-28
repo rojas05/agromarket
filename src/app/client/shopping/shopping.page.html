@@ -13,23 +13,23 @@
 
   <div class="div-info">
     
-    <p>Sin llegar</p>
+    <p>{{context}}</p>
 
     <ion-tab-bar slot="bottom" color="none">
       <ion-tab-button>
-        <ion-icon name="albums-outline"></ion-icon>
-        <ion-label>Sin llegar</ion-label> 
+        <ion-icon name="albums-outline" (click)="initShoppingPending()"></ion-icon>
+        <ion-label>Pendientes</ion-label> 
       </ion-tab-button>
-      <ion-tab-button tab="sales">
+      <ion-tab-button tab="sales" (click)="initShopping()">
         <ion-icon name="bag-handle-outline"></ion-icon>
-        <ion-label>exitosa</ion-label> 
+        <ion-label>Exitosas</ion-label> 
       </ion-tab-button>
     </ion-tab-bar>
    
   </div>
 
   <ion-list>
-    <ion-item (click)="startScan()">
+    <ion-item>
       <ion-label>
         <p>producto</p>
         <h2>platano verdes</h2>
@@ -43,8 +43,19 @@
         <h2>38.000</h2>
       </ion-label>
       <br>
+      <ion-button routerLink="/scanqr"><ion-icon name="qr-code-outline"></ion-icon></ion-button>
+      <ion-button id="present-alert"><ion-icon name="text-outline"></ion-icon></ion-button>
     </ion-item>
+    
   </ion-list>
+
+  <ion-alert
+  trigger="present-alert"
+  header="Comparte este codigo con el repartidor"
+  subHeader="Tu codigo es:"
+  message="rfg14f54hf"
+  [buttons]="alertButtons"
+></ion-alert>
 
 </ion-content>
 

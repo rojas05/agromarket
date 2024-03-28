@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'mainclient',
+    redirectTo: 'maindelivery/ordersAvaliable',
     pathMatch: 'full'
   },
   {
@@ -66,7 +66,39 @@ const routes: Routes = [
   {
     path: 'shopping',
     loadChildren: () => import('./client/shopping/shopping.module').then( m => m.ShoppingPageModule)
-  }
+  },
+  {
+    path: 'scanqr',
+    loadChildren: () => import('./client/scanqr/scanqr.module').then( m => m.ScanqrPageModule)
+  },
+  {
+    path: 'maindelivery',
+    loadChildren: () => import('./deliveryman/maindelivery/maindelivery.module').then( m => m.MaindeliveryPageModule)
+  },
+  {
+    path: 'ordersavaliable',
+    loadChildren: () => import('./deliveryman/ordersavaliable/ordersavaliable.module').then( m => m.OrdersavaliablePageModule)
+  },
+  {
+    path: 'orderstaken',
+    loadChildren: () => import('./deliveryman/orderstaken/orderstaken.module').then( m => m.OrderstakenPageModule)
+  },
+  {
+    path: 'income',
+    loadChildren: () => import('./deliveryman/income/income.module').then( m => m.IncomePageModule)
+  },
+  {
+    path: 'ordersavaliabledetail',
+    loadChildren: () => import('./deliveryman/ordersavaliabledetail/ordersavaliabledetail.module').then( m => m.OrdersavaliabledetailPageModule)
+  },
+  {
+    path: 'orderstakendetail',
+    loadChildren: () => import('./deliveryman/orderstakendetail/orderstakendetail.module').then( m => m.OrderstakendetailPageModule)
+  },
+  {
+    path: 'generateqr',
+    loadChildren: () => import('./deliveryman/generateqr/generateqr.module').then( m => m.GenerateqrPageModule)
+  },
 ];
 
 @NgModule({

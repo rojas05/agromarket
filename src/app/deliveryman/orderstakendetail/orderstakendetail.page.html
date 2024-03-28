@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/maindelivery/ordersTaken">
+        <ion-icon name="close-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>pedido: </ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  
+  <div class="encabezado">
+    <ion-button routerLink="/generateqr">entregar pedido</ion-button>
+    <ion-button>ver el mapa</ion-button>
+  </div>
+
+  <ion-card>
+    <app-slide></app-slide>
+    <ion-item>
+      <ion-label>
+        <p>Producto</p>
+        <h2>platano</h2>
+      </ion-label>
+      <ion-label>
+        <p>Cantidad</p>
+        <h2>13</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>Ubicacacion del producto</p>
+        <h2>Vda villanueva</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>indicaciones</p>
+        <h2>casa blanca junto a la escuela</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>destino</p>
+        <h2>barrio las palmas, c6-#14</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>indicacones</p>
+        <h2>casa de tres pisos blanca</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>cliente</p>
+        <h2>pepito</h2>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <p>presupuesto</p>
+        <h2>$8.000</h2>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

@@ -25,7 +25,7 @@
 
 <div class="ads">
   <h4>mira esto!!</h4>
-  <swiper-container [slidesPerView]="3">
+  <swiper-container [slidesPerView]="3" navigation="true" scrollbar="true">
     <swiper-slide  *ngFor="let p of list.productos" routerLink="/detalle">
       <div>
         <img src="../../../assets/img/market.png" alt="">

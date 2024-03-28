@@ -9,9 +9,21 @@ import { SlideComponent } from 'app/components/slide/slide.component';
 })
 export class DetallePage implements OnInit {
 
+  public cantidad = 1
   constructor() { }
 
   ngOnInit() {
+    
+  }
+
+  onPlus(){
+    this.cantidad = this.cantidad + 1
+  }
+
+  onMinius(){
+    if(this.cantidad != 1){
+      this.cantidad = this.cantidad - 1
+    }
     
   }
 
