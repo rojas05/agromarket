@@ -18,13 +18,55 @@
 
   </div>
 
-  <form id="form">
-    <app-input Type="name" PlaceHolder="Pepito Molina" Icon="person-outline" Label="Nombre Completo"></app-input>
-    <app-input Type="text" PlaceHolder="Vereda Villanueva/Cra #6 -53" Icon="location-outline" Label="Direccion"></app-input>
-    <app-input Type="tel" PlaceHolder="3337465487" Icon="call-outline" Label="Telefono"></app-input>
-    <app-input Type="Email" PlaceHolder="miCorreo@agroMarket.com" Icon="mail-outline" Label="correo electronico"></app-input>
-    <app-input Type="password" PlaceHolder="Mi contrasena segura" Icon="key-outline" Label="contrasena"></app-input>
-    <ion-button expand="block" shape="round" routerLink="/">ingresar</ion-button>
+  <form id="form" [formGroup]="registerForm">
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
+    *ngIf="registerForm.controls.fullname.invalid && registerForm.controls.fullname.touched">{{getErrorNameMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="name" placeholder="Pepito Molina" label="Nombre Completo" labelPlacement="stacked" formControlName="fullname">
+        <ion-icon name="person-outline" slot="end"></ion-icon>
+      </ion-input>  
+    </ion-item>
+
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}" 
+    *ngIf="registerForm.controls.direccion.invalid && registerForm.controls.direccion.touched">{{getErrorDireccionMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="text" placeholder="Vereda Villanueva/Cra #6 -53" label="Direccion" labelPlacement="stacked" formControlName="direccion">
+        <ion-icon name="location-outline" slot="end"></ion-icon>
+      </ion-input>  <br>
+    </ion-item>
+
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
+    *ngIf="registerForm.controls.tel.invalid && registerForm.controls.tel.touched">{{getErrorTelMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="tel" placeholder="3337465487" label="Telefono" labelPlacement="stacked" formControlName="tel">
+        <ion-icon name="call-outline" slot="end"></ion-icon>
+      </ion-input>  
+    </ion-item>
+
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
+   *ngIf="registerForm.controls.email.invalid && registerForm.controls.email.touched">{{getErrorEmailMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="email" placeholder="miCorreo@agroMarket.com" label="correo" labelPlacement="stacked" formControlName="email">
+        <ion-icon name="mail-outline" slot="end"></ion-icon>
+      </ion-input>  
+    </ion-item>
+
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
+    *ngIf="registerForm.controls.password.invalid && registerForm.controls.password.touched">{{getErrorPasswordMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="password" placeholder="MiContrasenaSegura" label="Contrasena" labelPlacement="stacked" formControlName="password">
+        <ion-icon name="person-outline" slot="end"></ion-icon>
+      </ion-input>  
+    </ion-item>
+    <ion-button expand="block" shape="round" (click)="singUp()">ingresar</ion-button>
   </form>
+
+  <ion-toast
+    [ngStyle]="{'color':'#fe0000','--background':'#ffffff'}"
+    [isOpen]="isToastOpen"
+    message="{{messageToast}}"
+    [duration]="10000"
+    (didDismiss)="setOpenToast(false,'')"
+  ></ion-toast>
 
 </ion-content>

@@ -1,11 +1,5 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="primary">
-        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
     <ion-buttons slot="end">
       <ion-button color="primary" routerLink="/signup">
         registrarme
@@ -21,10 +15,31 @@
 
   </div>
 
-  <form id="form">
-    <app-input Type="Email" PlaceHolder="miCorreo@agroMarket.com" Icon="mail-outline" Label="correo electronico"></app-input>
-    <app-input Type="password" PlaceHolder="Mi contrasena segura" Icon="key-outline" Label="contrasena"></app-input>
-    <ion-button expand="block" shape="round" routerLink="/">ingresar</ion-button>
+  <form id="form" [formGroup]="loginForm" >
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
+   *ngIf="loginForm.controls.email.invalid && loginForm.controls.email.touched">{{getErrorEmailMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="email" placeholder="miCorreo@agroMarket.com" label="correo" labelPlacement="stacked" formControlName="email">
+        <ion-icon name="mail-outline" slot="end"></ion-icon>
+      </ion-input>  
+    </ion-item>
+
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
+    *ngIf="loginForm.controls.password.invalid && loginForm.controls.password.touched">{{getErrorPasswordMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="password" placeholder="MiContrasenaSegura" label="Contrasena" labelPlacement="stacked" formControlName="password">
+        <ion-icon name="person-outline" slot="end"></ion-icon>
+      </ion-input>  
+    </ion-item>
+    <ion-button expand="block" shape="round" (click)="login()">ingresar</ion-button>
   </form>
+
+  <ion-toast
+  [ngStyle]="{'color':'#fe0000','--background':'#ffffff'}"
+  [isOpen]="isToastOpen"
+  message="formulario incorrecto"
+  [duration]="10000"
+  (didDismiss)="setOpen(false)"
+></ion-toast>
 
 </ion-content>

@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'maindelivery/ordersAvaliable',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -98,6 +98,10 @@ const routes: Routes = [
   {
     path: 'generateqr',
     loadChildren: () => import('./deliveryman/generateqr/generateqr.module').then( m => m.GenerateqrPageModule)
+  },
+  {
+    path: 'updatetypeuser',
+    loadChildren: () => import('./updatetypeuser/updatetypeuser.module').then( m => m.UpdatetypeuserPageModule)
   },
 ];
 

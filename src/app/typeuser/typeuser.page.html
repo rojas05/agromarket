@@ -16,10 +16,23 @@
         <h3>Vendedor</h3>
         <p>Para que vendas todos tus productos, necesitamos algunos datos adicionales.</p>
 
-        <form id="form">
-          <app-input Type="text" PlaceHolder="junto a la escuela" Icon="navigate-circle-outline" Label="Indicaciones de dirección."></app-input>
-          <app-input Type="text" PlaceHolder="Granja el pollón" Icon="business-outline" Label="Finca/Empresa"></app-input>
-          <ion-button expand="block" shape="round" >ingresar</ion-button>
+        <form id="form" [formGroup]="vendedorForm">
+
+          <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
+          *ngIf="vendedorForm.controls.direccionEs.invalid && vendedorForm.controls.direccionEs.touched">{{getErrorPasswordMessage()}}</span>
+          <ion-item class="ion-margin-bottom">
+            <ion-input type="text" placeholder="junto a la escuela" label="Indicaciones de dirección." labelPlacement="stacked" formControlName="direccionEs">
+              <ion-icon name="navigate-circle-outline" slot="end"></ion-icon>
+            </ion-input>  
+          </ion-item>
+    
+          <ion-item class="ion-margin-bottom">
+            <ion-input type="text" placeholder="Granja el pollón" label="Finca/Empresa" labelPlacement="stacked" formControlName="finca">
+              <ion-icon name="business-outline" slot="end"></ion-icon>
+            </ion-input>  
+          </ion-item>
+          <ion-button expand="block" shape="round" (click)="insetTypeUserVendedor()">ingresar</ion-button>
+          
         </form>
       </div>
 
@@ -27,9 +40,16 @@
         <h3>Comprador</h3>
         <p>Para que tus productos lleguen a tiempo, necesitamos algunos datos adicionales.</p>
 
-        <form id="form">
-          <app-input Type="text" PlaceHolder="junto a la escuela" Icon="navigate-circle-outline" Label="Indicaciones de dirección."></app-input>
-          <ion-button expand="block" shape="round" >ingresar</ion-button>
+        <form id="form"  [formGroup]="compradorForm">
+
+          <ion-item class="ion-margin-bottom">
+            <ion-input type="text" placeholder="junto a la escuela" label="Indicaciones de dirección." labelPlacement="stacked" formControlName="direccionEs">
+              <ion-icon name="navigate-circle-outline" slot="end"></ion-icon>
+            </ion-input>  
+          </ion-item>
+
+          <ion-button expand="block" shape="round" (click)="insetTypeUserComprador()">ingresar</ion-button>
+
         </form>
       </div>
 
@@ -37,9 +57,16 @@
         <h3>Repartidor</h3>
         <p>Ganarte algo pa'la gasolina, pero antes ingresa las veredas por las cuales transitas. </p>
 
-        <form id="form">
-          <app-input Type="text" PlaceHolder="Villanueva, Mondeyal, Cienega" Icon="navigate-circle-outline" Label="Ruta"></app-input>
-          <ion-button expand="block" shape="round" >ingresar</ion-button>
+        <form id="form"  [formGroup]="repartidorForm">
+
+          <ion-item class="ion-margin-bottom">
+            <ion-input type="text" placeholder="villanueva, cienega, mondeyal..." label="Indicaciones de dirección." labelPlacement="stacked" formControlName="rutas">
+              <ion-icon name="navigate-circle-outline" slot="end"></ion-icon>
+            </ion-input>  
+          </ion-item>
+
+          <ion-button expand="block" shape="round" (click)="insetTypeUserRepartidor()">ingresar</ion-button>
+
         </form>
       </div>
 
