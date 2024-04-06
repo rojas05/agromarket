@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AutenticationService } from './autentication.service';
-import { User, Seller, Client, Delivery } from 'app/models/interfaceUser';
+import { User, Seller, Client, Delivery, SellerIndication } from 'app/models/interfaceUser';
 
 
 @Injectable({
@@ -9,7 +9,9 @@ import { User, Seller, Client, Delivery } from 'app/models/interfaceUser';
 })
 export class UserService {
 
-  constructor(public Firestore: AngularFirestore, public service: AutenticationService) { }
+  constructor(
+    public Firestore: AngularFirestore, 
+    public service: AutenticationService) { }
 
   async registerUser (usuario: User){
     const idUser = (await this.service.getProfile()).uid
@@ -19,6 +21,11 @@ export class UserService {
   async registerUserVendedor (seller: Seller){
     const idUser = (await this.service.getProfile()).uid
     return await this.Firestore.collection('/user/'+idUser+'/Type').doc("seller").set(seller)
+  }
+
+  async insertImgUserVendedor (img: string, name: string){
+    const idUser = (await this.service.getProfile()).uid
+    return await this.Firestore.collection('/user/'+idUser+'/Type/seller/imagesLocation').doc(name).set({"imagen" : img})
   }
 
   async registerUserComprador (client: Client){

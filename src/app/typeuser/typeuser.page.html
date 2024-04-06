@@ -1,9 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil de usuario</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <div id="header">
     
@@ -19,7 +13,7 @@
         <form id="form" [formGroup]="vendedorForm">
 
           <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
-          *ngIf="vendedorForm.controls.direccionEs.invalid && vendedorForm.controls.direccionEs.touched">{{getErrorPasswordMessage()}}</span>
+          *ngIf="vendedorForm.controls.direccionEs.invalid && vendedorForm.controls.direccionEs.touched">{{getErrorNameMessage()}}</span>
           <ion-item class="ion-margin-bottom">
             <ion-input type="text" placeholder="junto a la escuela" label="Indicaciones de dirección." labelPlacement="stacked" formControlName="direccionEs">
               <ion-icon name="navigate-circle-outline" slot="end"></ion-icon>
@@ -31,6 +25,18 @@
               <ion-icon name="business-outline" slot="end"></ion-icon>
             </ion-input>  
           </ion-item>
+
+           <div class="imagenes">
+            <p>ingresa tres fotos para orientar a los repartidores</p>
+
+                <img src="{{imageSelect1}}" id="open1" (click)="openModal = 'open1'">
+
+                <img src="{{imageSelect2}}" id="open2" (click)="openModal = 'open2'">
+
+                <img src="{{imageSelect3}}" id="open3" (click)="openModal = 'open3'" >
+            <label>(boble click para cambiar la imagen)</label>
+           </div>
+          
           <ion-button expand="block" shape="round" (click)="insetTypeUserVendedor()">ingresar</ion-button>
           
         </form>
@@ -72,6 +78,27 @@
 
   </div>
 
-  
+  <ion-modal [trigger]="openModal" [initialBreakpoint]="1" [breakpoints]="[0, 1]" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <div id="block">
+        <ion-toolbar>
+          <ion-title>seleciona el origen</ion-title>
+        </ion-toolbar>
+    
+          <ion-button class="modalbtn" (click)="camera()">camara <ion-icon name="camera-outline"></ion-icon></ion-button>
+          
+          <ion-button class="modalbtn" (click)="galeri()">galeria <ion-icon name="images-outline" ></ion-icon></ion-button>
+       
+      </div>
+    </ng-template>
+  </ion-modal>
+
+  <ion-toast
+  [ngStyle]="{'color':'#fe0000','--background':'#ffffff'}"
+  [isOpen]="isToastOpen"
+  message="{{messageToast}}"
+  [duration]="10000"
+  (didDismiss)="setOpenToast(false,'')"
+></ion-toast>
 
 </ion-content>

@@ -9,6 +9,7 @@ export interface User {
 export interface Seller {
     nombreEmpresa : string,
     direccion : string,
+    img : string[]
 }
 
 export interface Client {
@@ -17,4 +18,8 @@ export interface Client {
 
 export interface Delivery {
     rutas : string,
+}
+
+export interface SellerIndication {
+    imagen : string,
 }

@@ -1,0 +1,26 @@
+ion-content{
+    --background: #221c01;;
+
+    p{
+        color: #ffffff;
+        font-size: 20px;
+        padding: 20px;
+        text-align: center;
+        border-top:solid 5px #ffffff;
+        border-bottom:solid 5px #ffffff;
+        margin-top: 40px; 
+    }
+
+    .qr{
+        width: fit-content;
+        height: fit-content;
+        padding: 15px;
+        border-radius: 40px;
+        background: #FFD700;
+        margin: 0 auto;
+        margin-top: 40px;
+        border: solid 5px #ffffff;
+    }
+
+
+}

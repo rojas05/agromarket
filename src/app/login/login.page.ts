@@ -18,7 +18,8 @@ export class LoginPage implements OnInit {
     password : ['',[Validators.required,Validators.minLength(8),Validators.maxLength(12)]]
   })
 
-  constructor(public formBuilder:FormBuilder, 
+  constructor(
+    public formBuilder:FormBuilder, 
     public loadingControler: LoadingController, 
     public authService:AutenticationService,
     public router:Router) { }

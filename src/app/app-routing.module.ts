@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'addproduct',
     pathMatch: 'full'
   },
   {
@@ -102,6 +102,10 @@ const routes: Routes = [
   {
     path: 'updatetypeuser',
     loadChildren: () => import('./updatetypeuser/updatetypeuser.module').then( m => m.UpdatetypeuserPageModule)
+  },
+  {
+    path: 'generateqrcode',
+    loadChildren: () => import('./client/generateqrcode/generateqrcode.module').then( m => m.GenerateqrcodePageModule)
   },
 ];
 
