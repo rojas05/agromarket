@@ -18,6 +18,7 @@ export class SignupPage implements OnInit {
 
   registerForm = this.formBuilder.group({
     fullname : ['',[Validators.required,Validators.minLength(15)]],
+    city : ['',[Validators.required, Validators.minLength(4)]],
     direccion : ['',[Validators.required, Validators.minLength(8)]],
     tel : ['',[Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
     email : ['',[Validators.required,Validators.email]],
@@ -44,8 +45,8 @@ export class SignupPage implements OnInit {
   async singUp(){
       if(this.registerForm.valid){
         const newUser: User = {
-          id : 1,
           nombre : this.registerForm.value.fullname,
+          municipio : this.registerForm.value.city,
           direccion : this.registerForm.value.direccion,
           telefono : this.registerForm.value.tel
         }
@@ -114,15 +115,5 @@ export class SignupPage implements OnInit {
     this.messageToast = message
   }
 
-  async insertDatesUser(){
-    const newUser: User = {
-      id : 1,
-      nombre : this.registerForm.value.fullname,
-      direccion : this.registerForm.value.direccion,
-      telefono : this.registerForm.value.tel
-    }
-
-    
-  }
   
 }

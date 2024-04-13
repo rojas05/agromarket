@@ -6,6 +6,13 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { LoadingController } from '@ionic/angular';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { toDataURL } from 'qrcode';
+import { StorageService } from '../../service/storage.service';
+import { ProductService } from '../../service/product.service';
+import { Product } from '../../models/interfaceProduct';
+import { UserService } from '../../service/user.service';
+import { map } from 'rxjs';
+import { Seller, User } from 'app/models/interfaceUser';
 
 @Component({
   selector: 'app-addproduct',
@@ -15,14 +22,14 @@ import { OverlayEventDetail } from '@ionic/core/components';
 export class AddproductPage implements OnInit {
 
   @ViewChild(IonModal) modal: IonModal;
-
-  isToastOpen = false;
-
   openModal = "open1"
-
+  isToastOpen = false;
+  dataUrls: File[];
+  fileNames: string[];
+  city: string = ""
+  
   imageSelect1 = '../../assets/img/casa.png'
   imageSelect2 = '../../assets/img/entrada.png'
-  imageSelect3 = '../../assets/img/referencia.png'
 
   prodctForm = this.formBuilder.group({
     product : ['',[Validators.required,Validators.minLength(5)]],
@@ -32,19 +39,20 @@ export class AddproductPage implements OnInit {
     categoria: ['',[Validators.required,Validators.minLength(5)]]
   })
   constructor(
+    public userService:UserService,
     public formBuilder:FormBuilder, 
     public loadingControler: LoadingController, 
-    public router:Router) { }
+    public router:Router,
+    public productService: ProductService) { }
 
   ngOnInit() {
     Camera.checkPermissions()
+    this.getMunicipioUser()
   }
 
   async insertDatesProduct(){
     if(this.prodctForm.valid){
-      const loading = await this.loadingControler.create()
-      await loading.present()
-      
+      this.verifyPhotos()
     }else{
       this.setOpen(true)
     }
@@ -92,7 +100,7 @@ return file;
 
 //fin de recursos para fotos y camara 
 
-//recirsos para dialogo
+//recursos para dialogo
 
 camera() {
   this.modal.dismiss(null, 'foto');
@@ -109,16 +117,12 @@ onWillDismiss(event: Event) {
       this.foto1()
     }else if(this.openModal == 'open2'){
       this.foto2()
-    }else if(this.openModal == 'open3'){
-      this.foto3()
     }
   } else if(ev.detail.role === 'galeria'){
     if(this.openModal == 'open1'){
       this.galeria1()
     }else if(this.openModal == 'open2'){
-      this.foto2()
-    }else if(this.openModal == 'open3'){
-      this.foto3()
+      this.galeria2()
     }
   }
 }
@@ -130,15 +134,8 @@ async foto1(){
 
 async foto2(){
   this.imageSelect2 = (await this.tomarFoto()).toString()
-  this.openModal = "open3"
-}
-
-async foto3(){
-  this.imageSelect3 = (await this.tomarFoto()).toString()
   this.openModal = "open1"
 }
-
-
 
 async galeria1(){
   this.imageSelect1 = (await this.buscarGaleria()).toString()
@@ -147,15 +144,52 @@ async galeria1(){
 
 async galeria2(){
   this.imageSelect2 = (await this.buscarGaleria()).toString()
-  this.openModal = "open3"
-}
-
-async galeria3(){
-  this.imageSelect3 = (await this.buscarGaleria()).toString()
   this.openModal = "open1"
 }
 
   setOpen(isOpen: boolean) {
     this.isToastOpen = isOpen;
   }
+
+  //verificando los recursos y preparandolo para la insercion
+
+  verifyPhotos(){ 
+    this.dataUrls = [this.dataUrlToFile(this.imageSelect1,"1"), this.dataUrlToFile(this.imageSelect2,"2")];
+    this.fileNames = ['imagen1.png', 'imagen2.png'];
+    this.uploadFiles()
+  }
+
+  async uploadFiles() {
+    const newProduct : Product = {
+      nombre : this.prodctForm.value.product,
+      descripcion : this.prodctForm.value.description,
+      cantidad : Number(this.prodctForm.value.cantidad),
+      precio : Number(this.prodctForm.value.price),
+      categoria : this.prodctForm.value.categoria,
+      mercado : this.city,
+      img : this.fileNames,
+      vendedor : ""
+    }
+    console.log("subiendo")
+   await this.productService.uploadMultipleFiles(this.dataUrls, this.fileNames,newProduct).finally(()=>{
+    this.dataUrls = []
+    this.fileNames = []
+   })
+
+  }  
+
+ 
+  
+  getMunicipioUser(){
+    this.userService.getUserDates().then((product=>{
+      product.snapshotChanges().subscribe((res)=>{
+          console.log(res.payload.data());
+          const sellerData = res.payload.data() as User
+          this.city = sellerData.municipio
+      })
+    })).catch((Error)=>{
+      console.log(Error);
+    })
+  }
 }
+

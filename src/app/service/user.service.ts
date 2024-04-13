@@ -37,5 +37,15 @@ export class UserService {
     const idUser = (await this.service.getProfile()).uid
     return await this.Firestore.collection('/user/'+idUser+'/Type').doc("delivery").set(delivery)
   }
+
+  async getSellerUserDates() {
+    const idUser = (await this.service.getProfile()).uid
+    return this.Firestore.collection('/user/'+idUser+'/Type').doc('seller')
+  }
   
+
+  async getUserDates() {
+    const idUser = (await this.service.getProfile()).uid
+    return this.Firestore.collection('/user/').doc(idUser)
+  }
 }

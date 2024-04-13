@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { AutenticationService } from 'app/service/autentication.service';
 import { Router } from '@angular/router';
+import { Auth, User, user } from '@angular/fire/auth';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  private auth: Auth = inject(Auth);
+  user$ = user(this.auth);
+  userSubscription: Subscription;
+
   isToastOpen = false;
+
+
 
   loginForm = this.formBuilder.group({
     email : ['',[Validators.required,Validators.email]],
@@ -22,9 +30,20 @@ export class LoginPage implements OnInit {
     public formBuilder:FormBuilder, 
     public loadingControler: LoadingController, 
     public authService:AutenticationService,
-    public router:Router) { }
+    public router:Router,
+    ) { 
+      this.userSubscription = this.user$.subscribe((aUser: User | null) => {
+        if(aUser){
+          console.log(aUser.uid);
+          this.router.navigate(['/home/orders'])
+        }
+     
+    })
+
+    }
 
   ngOnInit() {
+   
   }
 
   get errorControl(){
@@ -39,11 +58,9 @@ export class LoginPage implements OnInit {
         }).catch((Error)=>{
           console.log(Error);
           loading.dismiss()
-  
-          console.log(this.loginForm.value.email,this.loginForm.value.password)
         }).finally(()=>{
           loading.dismiss()
-          this.router.navigate(['/home'])
+            this.router.navigate(['/home/orders'])
         })
       }else{
         this.setOpen(true)

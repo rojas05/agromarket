@@ -21,9 +21,6 @@ export class StorageService {
     public loadingControler: LoadingController, 
     public router :Router,) { }
 
-  async submin(file : File[]){
-  
-  }
   private messages: string[] = [];
 
   async uploadMultipleFiles(dataUrls: File[], fileNames: string[], finca: string, indication: string) {
@@ -36,7 +33,6 @@ export class StorageService {
         this.uploadFile(file, paths[index],fileNames[index],finca,indication)
       })
       await Promise.all(promises);
-      console.log(this.messages)
     })
     
   }

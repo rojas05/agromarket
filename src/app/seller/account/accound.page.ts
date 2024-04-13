@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Product } from 'app/models/interfaceProduct';
+import { ProductService } from 'app/service/product.service';
+import { UserService } from '../../service/user.service';
+import { Seller } from 'app/models/interfaceUser';
 
 @Component({
   selector: 'app-accound',
@@ -7,59 +11,73 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccoundPage implements OnInit {
 
+  public datesSeller: Seller
+  public productos : Product[] = [];
+  public productosFalce : Product[] = [];
 
-  public productos = [
-    {
-      id: 1,
-      name: 'platano',
-      img: "https://static.libertyprim.com/files/familles/banane-large.jpg?1569271725"
-    },
-    {
-      id: 2,
-      name: 'maiz',
-      img:"https://s1.eestatic.com/2020/01/10/ciencia/nutricion/maiz-cereales-nutricion_458715971_142137584_1706x960.jpg"
-    },
-    {
-      id: 3,
-      name: 'platano',
-      img: "https://static.libertyprim.com/files/familles/banane-large.jpg?1569271725"
-    },
-    {
-      id: 4,
-      name: 'maiz',
-      img:"https://s1.eestatic.com/2020/01/10/ciencia/nutricion/maiz-cereales-nutricion_458715971_142137584_1706x960.jpg"
-    }
-    
-  ];
+  public viewProductos: Product[] = []
+  public viewInactivos: Product[] = []
 
-  public viewProductos = this.productos.slice(0,1)
-  public viewAgotados = this.productos.slice(0,1)
-  public viewInactivos = this.productos.slice(0,1)
+  constructor(
+    public productService : ProductService,
+    public userService : UserService
+  ) {  }
 
-  constructor() {  }
 
   ngOnInit() {
-    
+    this.get()
+    this.getNoActive()
+    this.getDatesFinca()
   }
 
-  plusSales(){
+  plusProduct(){
     if(this.viewProductos.length == 1) 
     this.viewProductos = this.productos
     else 
     this.viewProductos = this.productos.slice(0,1)
   }
 
-  plusAgotados(){
-    if(this.viewAgotados.length == 1)
-    this.viewAgotados = this.productos
-    else
-    this.viewAgotados = this.productos.slice(0,1)
-   }
-
    plusInactivos(){
     if(this.viewInactivos.length == 1)
-    this.viewInactivos = this.productos
+    this.viewInactivos = this.productosFalce
     else
-    this.viewInactivos = this.productos.slice(0,1)
+    this.viewInactivos = this.productosFalce.slice(0,1)
+   }
+
+   async getDatesFinca(){
+    this.userService.getSellerUserDates().then((products)=>{  
+      products.snapshotChanges().subscribe((res)=>{
+        this.datesSeller = res.payload.data() as Seller
+      })
+    })
+   }
+
+
+   async get(){
+    this.productService.getProducts().then((products)=>{  
+      products.snapshotChanges().subscribe((res)=>{
+        this.productos = res.map((item) => {
+          return item.payload.doc.data() as Product;
+        });
+        this.viewProductos = this.productos.slice(0,1)
+      })
+    }).catch((Error)=>{
+      console.log(Error);
+      
+    })
+   }
+
+   async getNoActive(){
+     this.productService.getProductsFalce(0).then((product=>{
+      product.snapshotChanges().subscribe((res)=>{
+          this.productosFalce = res.map((item)=>{
+            return item.payload.doc.data() as Product
+          })
+          this.viewInactivos = this.productosFalce.slice(0,1)
+      })
+    })).catch((Error)=>{
+      console.log(Error);
+    })
+    
    }
 }

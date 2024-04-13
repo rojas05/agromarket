@@ -15,11 +15,6 @@ export class AppComponent {
     })
   }
 
-  checkDarkTheme() {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: li)');
-    if ( prefersDark.matches ) {
-        document.body.classList.toggle( 'dark' );
-    }
-}
+
     
 }

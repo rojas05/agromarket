@@ -28,6 +28,14 @@
     </ion-item>
 
     <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}" 
+    *ngIf="registerForm.controls.city.invalid && registerForm.controls.city.touched">{{getErrorDireccionMessage()}}</span>
+    <ion-item class="ion-margin-bottom">
+      <ion-input type="text" placeholder="Isnos-Huila" label="municipio/ciudad" labelPlacement="stacked" formControlName="city">
+        <ion-icon name="location-outline" slot="end"></ion-icon>
+      </ion-input>  <br>
+    </ion-item>
+
+    <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}" 
     *ngIf="registerForm.controls.direccion.invalid && registerForm.controls.direccion.touched">{{getErrorDireccionMessage()}}</span>
     <ion-item class="ion-margin-bottom">
       <ion-input type="text" placeholder="Vereda Villanueva/Cra #6 -53" label="Direccion" labelPlacement="stacked" formControlName="direccion">

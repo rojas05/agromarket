@@ -12,95 +12,73 @@
 <ion-content [fullscreen]="true">
 
   <div id="header">
-    <div class="div-redondeado">
+    <div class="div-redondeado" *ngIf="datesSeller != null">
 
       <ion-avatar>
         <img alt="Silhouette of a person's head" src="../../assets/img/sales.png" />
       </ion-avatar>
 
       <form id="form">
-        <app-input Type="text" Text="Granja el pollón" Icon="business-outline" Label="Finca/Empresa"></app-input>
-        <app-input Type="text" PlaceHolder="/Cra #6 -53" Icon="location-outline" Label="Direccion" Text="Vereda Villanueva"></app-input>
+        <app-input Type="text" Text="{{datesSeller.nombreEmpresa}}" Icon="business-outline" Label="Finca/Empresa"></app-input>
+        <app-input Type="text" Text="{{datesSeller.direccion}}" Icon="location-outline" Label="Direccion"></app-input>
       </form>
     </div>
 
-<h2>Mis Productos </h2>
+  <h2>Mis Productos </h2>
     
       <ion-list>
 
+  
+
+          <ion-item lines="none" class="ion-no-padding">
+            <div id="div-content">
+              <ion-label>productos inactivos</ion-label>
+            </div>
+          </ion-item>
+  
+          <ion-item *ngFor="let p of viewInactivos" lines="none">
+            <div id="div-content">
+              <ion-avatar>
+                <ion-img src="{{p.img[0]}}"></ion-img>
+              </ion-avatar>
+              <ion-label><b><u>{{p.nombre}}</u></b><br> <br> cantidad: {{p.cantidad}} <br> categoria: {{p.categoria}}</ion-label>
+              <div id="div-circle">
+                <ion-label><b><u>precio</u></b> <br>${{p.precio}}</ion-label>
+              </div>
+            </div>
+          </ion-item>
+  
+          <ion-item lines="none" class="view-plus">
+            <ion-button (click)="plusInactivos()">
+                ver todos
+            </ion-button>
+        </ion-item>
+  
         <ion-item lines="none" class="ion-no-padding">
           <div id="div-content">
-            <ion-label>productos </ion-label>
+            <ion-label>Todos los Productos</ion-label>
           </div>
         </ion-item>
-
-        <ion-item *ngFor="let p of viewAgotados" lines="none" routerLink="/updateproduc/:{{p.id}}">
+  
+        
+        <ion-item *ngFor="let p of viewProductos" lines="none">
           <div id="div-content">
             <ion-avatar>
-              <ion-img src="{{p.img}}"></ion-img>
+              <ion-img src="{{p.img[0]}}"></ion-img>
             </ion-avatar>
-            <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
+            <ion-label><b><u>{{p.nombre}}</u></b><br> <br> cantidad: {{p.cantidad}} <br> categoria: {{p.categoria}}</ion-label>
             <div id="div-circle">
-              <ion-label>pedios <br>{{p.id}}</ion-label>
+              <ion-label><b><u>precio</u></b> <br>${{p.precio}}</ion-label>
             </div>
           </div>
         </ion-item>
-
+  
         <ion-item lines="none" class="view-plus">
-          <ion-button (click)="plusAgotados()">
-              ver todos
-          </ion-button>
-      </ion-item>
-
-
-
-        <ion-item lines="none" class="ion-no-padding">
-          <div id="div-content">
-            <ion-label>productos inactivos</ion-label>
-          </div>
+            <ion-button (click)="plusProduct()">
+                ver todos los productos
+            </ion-button>
         </ion-item>
-
-        <ion-item *ngFor="let p of viewInactivos" lines="none">
-          <div id="div-content">
-            <ion-avatar>
-              <ion-img src="{{p.img}}"></ion-img>
-            </ion-avatar>
-            <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
-            <div id="div-circle">
-              <ion-label>pedios <br>{{p.id}}</ion-label>
-            </div>
-          </div>
-        </ion-item>
-
-        <ion-item lines="none" class="view-plus">
-          <ion-button (click)="plusInactivos()">
-              ver todos
-          </ion-button>
-      </ion-item>
-
-      <ion-item lines="none" class="ion-no-padding">
-        <div id="div-content">
-          <ion-label>Todos los Productos</ion-label>
-        </div>
-      </ion-item>
-
-      <ion-item *ngFor="let p of viewProductos" lines="none">
-        <div id="div-content">
-          <ion-avatar>
-            <ion-img src="{{p.img}}"></ion-img>
-          </ion-avatar>
-          <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
-          <div id="div-circle">
-            <ion-label>pedios <br>{{p.id}}</ion-label>
-          </div>
-        </div>
-      </ion-item>
-
-      <ion-item lines="none" class="view-plus">
-          <ion-button (click)="plusSales()">
-              ver todos los productos
-          </ion-button>
-      </ion-item>
+        
 
       <ion-item lines="none" id="add" routerLink="/addproduct">
         <div id="div-content">

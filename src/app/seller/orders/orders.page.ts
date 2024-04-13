@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AutenticationService } from 'app/service/autentication.service';
 
 @Component({
   selector: 'app-orders',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersPage implements OnInit {
 
-  constructor() { }
+  constructor(
+   
+  ) { }
 
   public orders = [
     {
@@ -39,6 +42,7 @@ export class OrdersPage implements OnInit {
   public ordesrTotal = this.orders.length
 
   ngOnInit() {
+    
   }
 
   plusOrders(){
@@ -54,5 +58,7 @@ export class OrdersPage implements OnInit {
     else
     this.viewOrderSale = this.orders.slice(0,1)
    }
+
+
 
 }

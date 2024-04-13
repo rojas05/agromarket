@@ -1,7 +1,7 @@
 
 export interface User {
-    id : number,
     nombre : string,
+    municipio : string,
     direccion : string,
     telefono : string
 }
