@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true">
+
+
+
+
+  <div class="div">
+    <ion-avatar>
+      <img src="../../assets/icon/favicon.png" alt="">
+    </ion-avatar>
+  </div>
+
+
+  <div id="preloader_4">
+      <span>A</span>
+      <span>G</span>
+      <span>R</span>
+      <span>O</span>
+      <span>M</span>
+      <span>A</span>
+      <span>R</span>
+      <span>K</span>
+      <span>E</span>
+      <span>T</span>
+  </div>
+
+
+  
+
+
+<ion-modal [initialBreakpoint]="1" [breakpoints]="[0, 1]" isOpen="{{isOpen}}">
+  <ng-template>
+    <div id="block">
+      <ion-toolbar>
+        <ion-title>Como deceas ingresar?</ion-title>
+      </ion-toolbar>
+        <ion-button class="modalbtn" *ngIf="typesUser[0]  == 'client'" (click)="onClick('client')">Comprador</ion-button>
+        <ion-button class="modalbtn" *ngIf="typesUser[1]  == 'client'" (click)="onClick('client')">Comprador</ion-button>
+        <ion-button class="modalbtn" *ngIf="typesUser[2]  == 'client'" (click)="onClick('client')">Comprador</ion-button> 
+
+        <ion-button class="modalbtn" *ngIf="typesUser[0]  == 'delivery'" (click)="onClick('delivery')">Repartidor</ion-button>
+        <ion-button class="modalbtn" *ngIf="typesUser[1]  == 'delivery'" (click)="onClick('delivery')">Repartidor</ion-button> 
+        <ion-button class="modalbtn" *ngIf="typesUser[2]  == 'delivery'" (click)="onClick('delivery')">Repartidor</ion-button> 
+        
+        <ion-button class="modalbtn" *ngIf="typesUser[0]  == 'seller'" (click)="onClick('seller')">vendedor</ion-button> 
+        <ion-button class="modalbtn" *ngIf="typesUser[1]  == 'seller'" (click)="onClick('seller')">vendedor</ion-button> 
+        <ion-button class="modalbtn" *ngIf="typesUser[2]  == 'seller'" (click)="onClick('seller')">vendedor</ion-button> 
+    </div>
+  </ng-template>
+</ion-modal>
+
+</ion-content>

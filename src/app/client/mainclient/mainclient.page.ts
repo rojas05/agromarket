@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SlideComponent } from 'app/components/slide/slide.component';
+import { Product } from 'app/models/interfaceProduct';
+import { ProductService } from 'app/service/product.service';
 import { Observable, interval, map, takeWhile } from 'rxjs';
 
 @Component({
@@ -14,6 +16,8 @@ public img = {
     "../../../assets/img/market.png"
   ]
 }
+
+public products: Product[]
 
   public list = {
     "productos": [
@@ -74,31 +78,55 @@ public img = {
     ]
   }
 
-  public view = this.list.productos.slice(0,3)
+  public view : Product[] = []
 
-  constructor() { }
+  constructor(
+    public productService : ProductService
+  ) { }
   private alive: boolean = true;
-  productoAleatorio?: String
+  productoAleatorio?: Product = null
 
  ramdon(){
-    this.productoAleatorio =  this.list.productos[Math.floor(Math.random() * this.list.productos.length)]
+    this.productoAleatorio =  this.products[Math.floor(Math.random() * this.products.length)]
     const source = interval(10000);
     source.pipe(
       takeWhile(() => this.alive)
     ).subscribe(() => {
-      this.productoAleatorio = this.list.productos[Math.floor(Math.random() * this.list.productos.length)]
+      this.productoAleatorio =this.products[Math.floor(Math.random() * this.products.length)]
     });
 }
 
   ngOnInit() {
-    this.ramdon()
+    this.get()
+    
   }
 
   verMas(){
     if(this.view.length == 3)
-    this.view = this.list.productos
+    this.view = this.products
     else
-    this.view = this.list.productos.slice(0,3)
+    this.view = this.products.slice(0,3)
   }
+
+  async get(){
+
+    this.productService.getProductsClient().then((products)=>{  
+      products.snapshotChanges().subscribe((res)=>{
+        this.products = res.map((item) => {
+          const productsFirebase = item.payload.doc.data() as Product;
+          productsFirebase.id = item.payload.doc.id
+          return productsFirebase
+        });
+        this.view = this.products.slice(0,3)
+        this.ramdon()
+      })
+    }).catch((Error)=>{
+      console.log(Error);
+      
+    })
+   }
+
+
+
   
 }

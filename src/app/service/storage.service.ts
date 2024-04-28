@@ -23,14 +23,14 @@ export class StorageService {
 
   private messages: string[] = [];
 
-  async uploadMultipleFiles(dataUrls: File[], fileNames: string[], finca: string, indication: string) {
+  async uploadMultipleFiles(dataUrls: File[], fileNames: string[],dates:Seller) {
     var uId
     this.fireAuth.getProfile().then((id)=>{
       uId =  id.uid
     }).finally(async()=>{
       const paths = dataUrls.map((file, index) => `imagenesTypeUser/${uId}/${fileNames[index]}`);
       const promises = dataUrls.map((file, index) => {
-        this.uploadFile(file, paths[index],fileNames[index],finca,indication)
+        this.uploadFile(file, paths[index],fileNames[index],dates)
       })
       await Promise.all(promises);
     })
@@ -38,7 +38,7 @@ export class StorageService {
   }
 
 
-  async uploadFile(file: File, path: string, Filename,finca: string, indication: string) {
+  async uploadFile(file: File, path: string, Filename, dates : Seller) {
     //constante para almacenar las url
     
     //mensaje de carga al usuario
@@ -58,9 +58,11 @@ export class StorageService {
       this.router.navigate(['/home/orders'])
       console.log(this.messages)
       const newUserType: Seller = {
-        nombreEmpresa : finca,
-        direccion : indication,
-        img : this.messages
+        nombreEmpresa : dates.nombreEmpresa,
+        direccion : dates.direccion,
+        img : this.messages,
+        vereda : dates.vereda,
+        ubicacion : dates.ubicacion 
       }
       await this.userService.registerUserVendedor(newUserType).catch((Error)=>{
           console.error

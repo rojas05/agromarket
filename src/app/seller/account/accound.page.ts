@@ -45,8 +45,8 @@ export class AccoundPage implements OnInit {
    }
 
    async getDatesFinca(){
-    this.userService.getSellerUserDates().then((products)=>{  
-      products.snapshotChanges().subscribe((res)=>{
+    this.userService.getSellerUserDates().then((seller)=>{  
+      seller.snapshotChanges().subscribe((res)=>{
         this.datesSeller = res.payload.data() as Seller
       })
     })
@@ -57,7 +57,9 @@ export class AccoundPage implements OnInit {
     this.productService.getProducts().then((products)=>{  
       products.snapshotChanges().subscribe((res)=>{
         this.productos = res.map((item) => {
-          return item.payload.doc.data() as Product;
+          const productsFirebase = item.payload.doc.data() as Product;
+          productsFirebase.id = item.payload.doc.id
+          return productsFirebase
         });
         this.viewProductos = this.productos.slice(0,1)
       })

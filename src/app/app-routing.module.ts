@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'splah',
     pathMatch: 'full'
   },
   {
@@ -56,7 +56,7 @@ const routes: Routes = [
     loadChildren: () => import('./client/mainclient/mainclient.module').then( m => m.MainclientPageModule)
   },
   {
-    path: 'detalle',
+    path: 'detalle/:id',
     loadChildren: () => import('./client/detalle/detalle.module').then( m => m.DetallePageModule)
   },
   {
@@ -106,6 +106,10 @@ const routes: Routes = [
   {
     path: 'generateqrcode',
     loadChildren: () => import('./client/generateqrcode/generateqrcode.module').then( m => m.GenerateqrcodePageModule)
+  },
+  {
+    path: 'splah',
+    loadChildren: () => import('./splah/splah.module').then( m => m.SplahPageModule)
   },
 ];
 

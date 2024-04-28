@@ -12,12 +12,11 @@ import { InputModule } from 'app/components/input/input.module';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     FormsModule,
     InputModule,
     IonicModule,
-    AddproductPageRoutingModule
+    AddproductPageRoutingModule,
   ],
   declarations: [AddproductPage]
 })

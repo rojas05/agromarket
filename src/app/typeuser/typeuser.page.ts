@@ -1,17 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormControl } from '@angular/forms';
-import { Client, Seller, Delivery, SellerIndication } from '../models/interfaceUser';
+import { Client, Seller, Delivery, SellerIndication, Ubicacion } from '../models/interfaceUser';
 import { UserService } from 'app/service/user.service';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Router, UrlSegment } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { StorageService } from '../service/storage.service';
-import { register } from 'swiper/element';
-import { saveAs as fileSaverSave } from 'file-saver'
-import { toDataURL, toFile } from 'qrcode';
+import { GooglemapsComponent } from 'app/googlemaps/googlemaps.component';
+import { Geolocation } from '@capacitor/geolocation';
  
 
 @Component({
@@ -34,10 +32,12 @@ export class TypeuserPage implements OnInit {
   fileNames: string[];
   messageToast:string
   isToastOpen = false;
+  ubicacion : Ubicacion = null
 
   vendedorForm = this.FormBuilder.group({
     finca : ['',[Validators.required,Validators.minLength(3)]],
     direccionEs : ['',[Validators.required, Validators.minLength(15)]],
+    vereda : ['',[Validators.required, Validators.minLength(4)]],
   })
 
   compradorForm = this.FormBuilder.group({
@@ -49,13 +49,16 @@ export class TypeuserPage implements OnInit {
   })
 
   constructor(
+    private modalController: ModalController,
     public FormBuilder:FormBuilder,
     public userService:UserService,
     public storageService:StorageService,
     public loadingControler: LoadingController, 
     public router :Router,
-    private modalCtrl: ModalController
-    ) { }
+    ) {
+      
+
+     }
 
   ngOnInit() {
     Camera.checkPermissions()
@@ -71,7 +74,8 @@ export class TypeuserPage implements OnInit {
 
   async insetTypeUserVendedor(){
     if(this.vendedorForm.valid){
-      this.verifyPhotos(this.vendedorForm.value.finca, this.vendedorForm.value.direccionEs)
+      console.log("Event")
+      this.verifyPhotos()
     }else{
       this.setOpenToast(true,"fomulario incorrecto")
     }
@@ -79,10 +83,11 @@ export class TypeuserPage implements OnInit {
 
   async insetTypeUserComprador(){
     if(this.compradorForm.valid){
-      const loading = await this.loadingControler.create()
+        const loading = await this.loadingControler.create()
       await loading.present()
       const newUserType: Client = {
-        direccion : this.compradorForm.value.direccionEs
+        direccion : this.compradorForm.value.direccionEs,
+        ubicacion : this.ubicacion
       }
     await this.userService.registerUserComprador(newUserType).catch((Error)=>{
       console.log(Error);
@@ -91,7 +96,7 @@ export class TypeuserPage implements OnInit {
     }).finally(()=>{
       this.router.navigate(['/mainclient'])
       loading.dismiss()
-    })  
+    }) 
     }
   }
 
@@ -107,7 +112,7 @@ export class TypeuserPage implements OnInit {
       loading.dismiss()
       this.router.navigate(['/typeUser'])
     }).finally(()=>{
-      this.router.navigate(['/maindelivery'])
+      this.router.navigate(['/maindelivery/ordersAvaliable'])
       loading.dismiss()
     })  
     }
@@ -214,15 +219,27 @@ export class TypeuserPage implements OnInit {
   }
   
 
-  verifyPhotos(name:string,indication:string){ 
-    this.dataUrls = [this.dataUrlToFile(this.imageSelect1,"1"), this.dataUrlToFile(this.imageSelect2,"2"), this.dataUrlToFile(this.imageSelect3,"3")];
-    this.fileNames = ['imagen1.png', 'imagen2.png', 'imagen3.png'];
-    this.uploadFiles(name,indication)
+  verifyPhotos(){ 
+    if(this.ubicacion != null){
+      this.dataUrls = [this.dataUrlToFile(this.imageSelect1,"1"), this.dataUrlToFile(this.imageSelect2,"2"), this.dataUrlToFile(this.imageSelect3,"3")];
+      this.fileNames = ['imagen1.png', 'imagen2.png', 'imagen3.png'];
+      
+        this.uploadFiles()
+    }else{
+      this.setOpenToast(true,"ingrese su localizacion en el mapa")
+    }
   }
 
-  async uploadFiles(name:string,indication:string) {
+  async uploadFiles() {
     console.log("subiendo")
-   await this.storageService.uploadMultipleFiles(this.dataUrls, this.fileNames,name,indication)
+    const dates : Seller = {
+      nombreEmpresa : this.vendedorForm.value.finca, 
+      direccion : this.vendedorForm.value.direccionEs,
+      vereda : this.vendedorForm.value.vereda,
+      ubicacion : this.ubicacion
+      
+    }
+   await this.storageService.uploadMultipleFiles(this.dataUrls,this.fileNames,dates)
     
   }     
   
@@ -230,6 +247,45 @@ export class TypeuserPage implements OnInit {
     this.isToastOpen = isOpen;
     this.messageToast = message
   } 
+
+  async addDirection() {
+    
+    console.log('mylocation() click')
+
+    Geolocation.getCurrentPosition().then(async(res) => {
+
+      console.log('mylocation() -> get ', res);
+    
+      let cordenadas = {
+            lat: res.coords.latitude,
+            lng: res.coords.longitude,
+      }
+
+      let positionInput = {  
+        lat: 0,
+        lng: 0,
+      };
+
+      if (cordenadas !== null) {
+          positionInput = cordenadas; 
+      }
+  
+      const modalAdd  = await this.modalController.create({
+        component: GooglemapsComponent,
+        mode: 'ios',
+        componentProps: {position: positionInput}
+      });
+      await modalAdd.present();
+  
+      const {data} = await modalAdd.onWillDismiss();
+      if (data) {
+        console.log('data -> ', data);
+        this.ubicacion = data.pos
+      }
+
+    });
+
+  }
 }
 
 

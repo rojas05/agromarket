@@ -48,9 +48,6 @@ ion-content{
               }
         }
 
-        
-
-       
     }
 
     #form{
@@ -60,7 +57,24 @@ ion-content{
         margin-top: 3%;
         padding: 20px;
 
-    
+        ion-item{
+            border-radius: 20px;
+            --highlight-height: 0px;
+            --flex-direction: column;
+        
+            ion_input{
+                font-size: 10px;
+                --padding-top: 20px;
+                --padding-bottom: 15px;
+                --padding-start: 5px;
+            }
+        
+            a{
+                font-size: 17px;
+                letter-spacing: 0.5px;
+                text-decoration: none;
+            }
+        }
 
         ion-button{
             margin-top: 35px;

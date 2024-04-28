@@ -43,6 +43,7 @@ export class SignupPage implements OnInit {
   }
 
   async singUp(){
+      
       if(this.registerForm.valid){
         const newUser: User = {
           nombre : this.registerForm.value.fullname,
@@ -52,14 +53,15 @@ export class SignupPage implements OnInit {
         }
         const loading = await this.loadingControler.create()
         await loading.present()
-        await this.authService.registerUser(this.registerForm.value.email,this.registerForm.value.password).then(async ()=>{
-          await this.userService.registerUser(newUser).catch((Error)=>{
-            console.log(Error);
-            loading.dismiss()
-            this.router.navigate(['/signup'])
-          }).finally(()=>{
-            this.setOpenToast(true,"Bienvenido")
-          })
+        await this.authService.registerUser(this.registerForm.value.email,this.registerForm.value.password).then(async (user)=>{
+          if(user.user.uid.length != 0){
+            await this.userService.registerUser(newUser).then((result)=>{
+              console.log(result);
+              
+            })
+          }else{
+            this.setOpenToast(true,"error al registar los datos")
+          } 
         }).catch((Error)=>{
           console.log(Error);
           loading.dismiss()

@@ -16,7 +16,7 @@
     </ion-buttons>  
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar  placeholder="{{productoAleatorio}}"></ion-searchbar>
+    <ion-searchbar *ngIf="productoAleatorio != null" placeholder="{{productoAleatorio.nombre}}"></ion-searchbar>
     <ion-label>serca a Isnos-Huila</ion-label> <ion-icon name="location-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -26,10 +26,10 @@
 <div class="ads">
   <h4>mira esto!!</h4>
   <swiper-container [slidesPerView]="3" navigation="true" scrollbar="true">
-    <swiper-slide  *ngFor="let p of list.productos" routerLink="/detalle">
+    <swiper-slide  *ngFor="let p of products" routerLink="/detalle/{{p.id}}">
       <div>
-        <img src="../../../assets/img/market.png" alt="">
-        <label>{{p}}</label>
+        <img src="{{p.img[0]}}" alt="">
+        <label>{{p.nombre}}</label>
       </div>
     </swiper-slide>
   </swiper-container>
@@ -38,32 +38,7 @@
 
   <ion-list>
 
-    <div class="div-recomendado">
-
-      <ion-item lines="none" class="title">
-      
-        <ion-label> <i>productos frescos</i> </ion-label>
-        
-        <ion-button (click)="verMas()">ver mas</ion-button>
-      </ion-item>
-
-      <ion-item lines="none"  *ngFor="let p of view" routerLink="/detalle">
-        <div id="div-content">
-          <ion-avatar>
-            <ion-img src="../../../assets/img/market.png"></ion-img>
-          </ion-avatar>
-            <div class="div-text">
-              <p>precio: <br> 10.000 </p>
-              <p>producto: <br> {{p}}</p>
-            </div>
-          </div>
-       
-      </ion-item>
-
-    </div>
-
-
-    <div class="div-recomendado">
+    <div class="div-recomendado" *ngIf="view != []">
 
       <ion-item lines="none" class="title">
       
@@ -72,39 +47,17 @@
         <ion-button (click)="verMas()">ver mas</ion-button>
       </ion-item>
 
-      <ion-item lines="none"  *ngFor="let p of view" routerLink="/detalle">
+      <ion-item lines="none"  *ngFor="let p of view" routerLink="/detalle/{{p.id}}">
         <div id="div-content">
           <ion-avatar>
-            <ion-img src="../../../assets/img/market.png"></ion-img>
+            <ion-img src="{{p.img[0]}}"></ion-img>
           </ion-avatar>
-            <div class="div-text">
-              <p>precio: <br> 10.000 </p>
-              <p>producto: <br> {{p}}</p>
-            </div>
-          </div>
-       
-      </ion-item>
-
-    </div>
-
-    <div class="div-recomendado">
-
-      <ion-item lines="none" class="title">
-      
-        <ion-label> <i>para ti </i> </ion-label>
-        
-        <ion-button (click)="verMas()">ver mas</ion-button>
-      </ion-item>
-
-      <ion-item lines="none"  *ngFor="let p of view" routerLink="/detalle">
-        <div id="div-content">
-          <ion-avatar>
-            <ion-img src="../../../assets/img/market.png"></ion-img>
-          </ion-avatar>
-            <div class="div-text">
-              <p>precio: <br> 10.000 </p>
-              <p>producto: <br> {{p}}</p>
-            </div>
+          <ion-label>
+            <b> <u> {{p.nombre}} </u> </b> <br> <br> 
+            <b>precio:</b> {{p.precio}} <br> 
+            <b>disponibles:</b> {{p.cantidad}} <br> 
+            <b>categoria:</b> {{p.categoria}}
+          </ion-label>
           </div>
        
       </ion-item>

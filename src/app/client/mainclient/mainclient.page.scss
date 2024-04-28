@@ -59,6 +59,8 @@ ion-content{
 
             img{
                 border-radius: 5px;
+                width: 100px;
+                height: 100px;
             }
 
             p{
@@ -95,11 +97,9 @@ ion-content{
 
             ion-avatar{
                 --border-radius: 10px;
-                margin-top: 10px;
-                margin-bottom:10px;
-                height: fit-content;
-                width: 40%;
-                margin-left: 10px;
+                margin: 10px;
+                height: 100px;
+                width: 100px;
                 float: left;
             }
 
@@ -110,22 +110,8 @@ ion-content{
                 padding-right: 20px;
                 border-bottom: solid 2px;
 
-                .div-text{
-                    background: #ffffff;
-                    height: 110px;
-                    float: left;
-                    width: 50%;
-                    margin: 8px;
-                    border: solid 2px;
-                    border-radius: 5px;
-                    
-                    p{
-                        border-top: solid 2px;
-                        margin: 3px;
-                        text-align: center;
-                        height: max-content;
-                        height: 50%;
-                    }
+                ion-label{
+                    margin-top: 10px;
                 }
             }
         }

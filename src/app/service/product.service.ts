@@ -23,15 +23,14 @@ export class ProductService {
     private fireAuth : AutenticationService, 
     public loadingControler: LoadingController, 
     public router :Router,
-    public FireBase : AngularFireDatabase,
   ) { }
 
   
-  private messages: string[] = [];
+  private urls: string[] = [];
 
   
   async uploadMultipleFiles(dataUrls: File[], fileNames: string[], producto: Product) {
-    this.messages = []
+    this.urls = []
     var uId
     this.fireAuth.getProfile().then((id)=>{
       uId =  id.uid
@@ -61,11 +60,11 @@ export class ProductService {
     await task.then(async(it) => {
       //opteniendo la url
      const url = await it.ref.getDownloadURL()
-      await this.messages.push(url)
+      await this.urls.push(url)
       
   }).finally( () => {
     if(fileName == 'imagen2.png'){
-       this.registerNewProducto(this.messages,producto).catch((Error)=>{
+       this.registerNewProducto(this.urls,producto).catch((Error)=>{
           console.log(Error);
           this.router.navigate(['/addproduct'])
       })
@@ -88,12 +87,8 @@ export class ProductService {
       categoria: producto.categoria,
       mercado: producto.mercado,
       img: urls,
-      vendedor: 'user/'+idUser
+      vendedor: idUser
     }
-    //verificando que en la variable urls hay dos urls
-    console.log(urls);
-    //insertando el producto en firebase 
-    
     await this.Firestore.collection('/products').doc().set(newProduct)
    
     //resultado solo se inserta una url y el espacio string contiene dos variables
@@ -101,12 +96,31 @@ export class ProductService {
     //resultado esperado se inserten dos urls en firebase 
   }
 
+  async updateStock (doc: string, stockNew: number){
+    var ref = this.Firestore.collection('/products').doc(doc)
+    await ref.get().subscribe(doc => {
+      if (doc.exists) {
+        const puntuacionActual = doc.data() as Product 
+        const stock = puntuacionActual.cantidad - stockNew;
+        // Actualizar el campo con el nuevo valor
+        ref.update({
+          cantidad: stock
+        }).catch((Error)=>{
+          console.log(Error);
+          this.router.navigate(['/mainclient'])
+        })
+      } else {
+        console.error('El documento no existe');
+      }
+    });
+  }
+
   async getProducts<tipo>() {
     const idUser = (await this.service.getProfile()).uid
     this.Firestore.collection('/products')
     const collection = this.Firestore.collection<tipo>(
       '/products',
-      ref => ref.where('vendedor', '==', 'user/'+idUser)
+      ref => ref.where('vendedor', '==', idUser)
     )
     return collection
   }
@@ -115,13 +129,17 @@ export class ProductService {
     const idUser = (await this.service.getProfile()).uid
     const collection = this.Firestore.collection<tipo>(
       '/products',
-      ref => ref.where('cantidad', '==', cantidad) .where('vendedor', '==', 'user/'+idUser)
+      ref => ref.where('cantidad', '==', cantidad) .where('vendedor', '==', idUser)
     )
     return collection
   }
 
   async getProductsClient() {
-    return this.Firestore.collection('/user').doc().collection('/type').doc('seller').collection('/product')
+    return this.Firestore.collection('/products')
+  }
+
+  async getProductsClientDetail(id : string) {
+    return this.Firestore.collection('/products').doc(id)
   }
 
 
@@ -133,4 +151,6 @@ export class ProductService {
     )
     return collection
   }
+
+
 }

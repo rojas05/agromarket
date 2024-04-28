@@ -32,13 +32,7 @@ export class LoginPage implements OnInit {
     public authService:AutenticationService,
     public router:Router,
     ) { 
-      this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-        if(aUser){
-          console.log(aUser.uid);
-          this.router.navigate(['/home/orders'])
-        }
-     
-    })
+
 
     }
 
@@ -54,13 +48,22 @@ export class LoginPage implements OnInit {
       if(this.loginForm.valid){
         const loading = await this.loadingControler.create()
         await loading.present()
-        await this.authService.loginUser(this.loginForm.value.email,this.loginForm.value.password).then(()=>{
+        await this.authService.loginUser(this.loginForm.value.email,this.loginForm.value.password).then((credential)=>{
+          if(credential.user.uid.length != 0){
+            this.userSubscription = this.user$.subscribe((aUser: User | null) => {
+              if(aUser){
+                console.log(aUser.uid);
+                this.router.navigate(['/home/orders'])
+              }
+           
+          })
+          }else{
+            this.setOpen(true)
+          }
         }).catch((Error)=>{
-          console.log(Error);
-          loading.dismiss()
+            console.log(Error);
         }).finally(()=>{
-          loading.dismiss()
-            this.router.navigate(['/home/orders'])
+          loading.dismiss() 
         })
       }else{
         this.setOpen(true)

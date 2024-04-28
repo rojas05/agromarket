@@ -1,0 +1,77 @@
+
+         <ion-header>
+           <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="ModalController.dismiss()">
+                 <ion-icon name="arrow-back" color="dark"></ion-icon>
+              </ion-button>
+           </ion-buttons>
+             <ion-title>Confirmemos la compra</ion-title>
+           </ion-toolbar>
+         </ion-header>
+         <ion-content class="ion-padding">
+
+            <ion-item>
+               <ion-label>
+                 <p>producto</p>
+                 <h2>{{pedido.descripcion}}</h2>
+               </ion-label>
+             </ion-item>
+
+             <ion-item>
+               <ion-label>
+                 <p>cantidad</p>
+                 <h2>{{pedido.cantidad}}</h2>
+               </ion-label>
+             </ion-item>
+
+             <ion-item>
+               <ion-label>
+                 <p>domicilio</p>
+                 <h2>{{pedido.domicilio}}</h2>
+               </ion-label>
+             </ion-item>
+
+             <ion-item>
+               <ion-label>
+                 <p>precio por unidad</p>
+                 <h2>{{pedido.valorUnidad}}</h2>
+               </ion-label>
+             </ion-item>
+
+             <ion-item>
+               <ion-label>
+                 <p>precio de envio</p>
+                 <h2>{{pedido.valorDomicilio}}</h2>
+               </ion-label>
+             </ion-item>
+
+             <ion-item>
+              <ion-label>
+                <p>Mensaje al vendedor</p>
+                <h2>{{pedido.message}}</h2>
+              </ion-label>
+            </ion-item>
+
+             <ion-item>
+               <ion-label>
+                 <p>total</p>
+                 <h2>El valor total de su pedido es de {{pedido.valorTotal}}</h2>
+               </ion-label>
+             </ion-item>
+
+             <p class="text"> <b>Sostenibilidad</b> <br>  <i>Ayudas a reducir el impacto ambiental al acortar la cadena de suministro y eliminar intermediarios ademas
+               estás contribuyendo al desarrollo económico de tu comunidad.</i></p>
+
+            <ion-button class="modalbtn" (click)="noDelivery()">No, gracias</ion-button>
+
+            <ion-button class="modalbtn" (click)="yesDelivery()">Si, por favor</ion-button>
+          
+         </ion-content>
+
+
+      
+
+
+
+         

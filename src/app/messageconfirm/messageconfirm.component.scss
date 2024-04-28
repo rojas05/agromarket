@@ -1,0 +1,27 @@
+ion-toolbar{
+    --background:  rgba(255, 208, 0, 0.5);
+    ion-title{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.counter__section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+.modalbtn{
+    margin: 5%;
+    width: 40%;
+    height: 50px;
+    --border-radius: 20px;  
+}
+
+.text{
+    text-align: center;
+}
+
+
+

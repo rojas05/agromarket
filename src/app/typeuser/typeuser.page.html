@@ -14,6 +14,27 @@
 
           <span [ngStyle]="{'color':'#fe0000','background':'#ffffff'}"
           *ngIf="vendedorForm.controls.direccionEs.invalid && vendedorForm.controls.direccionEs.touched">{{getErrorNameMessage()}}</span>
+
+          <ion-item (click)="addDirection()">
+            <ion-label class="normal" *ngIf="ubicacion == null">
+               ingresa tu ubicacion
+            </ion-label>
+            <ion-label class="normal" *ngIf="ubicacion != null">
+               {{ubicacion.lat}} {{ubicacion.lng}}
+            </ion-label>
+            <ion-buttons slot="end">
+              <ion-button>
+                   <ion-icon slot="icon-only" color="danger" name="location"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+
+          <ion-item class="ion-margin-bottom">
+            <ion-input type="text" placeholder="villanueva" label="Vereda de residencia." labelPlacement="stacked" formControlName="vereda">
+              <ion-icon name="navigate-circle-outline" slot="end"></ion-icon>
+            </ion-input>  
+          </ion-item>
+
           <ion-item class="ion-margin-bottom">
             <ion-input type="text" placeholder="junto a la escuela" label="Indicaciones de dirección." labelPlacement="stacked" formControlName="direccionEs">
               <ion-icon name="navigate-circle-outline" slot="end"></ion-icon>
@@ -47,6 +68,17 @@
         <p>Para que tus productos lleguen a tiempo, necesitamos algunos datos adicionales.</p>
 
         <form id="form"  [formGroup]="compradorForm">
+
+          <ion-item (click)="addDirection()">
+            <ion-label class="normal">
+               Ubicación
+            </ion-label>
+            <ion-buttons slot="end">
+              <ion-button>
+                   <ion-icon slot="icon-only" color="danger" name="location"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
 
           <ion-item class="ion-margin-bottom">
             <ion-input type="text" placeholder="junto a la escuela" label="Indicaciones de dirección." labelPlacement="stacked" formControlName="direccionEs">

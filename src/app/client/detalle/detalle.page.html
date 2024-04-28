@@ -14,24 +14,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="product != null">
   <div class="div-redondeado">
     <div class="img">
-      <app-slide></app-slide>
+      <swiper-container navigation="true" pagination="true" scrollbar="true">
+        <swiper-slide>
+          <img src="{{product.img[0]}}">
+        </swiper-slide>
+        <swiper-slide>
+          <img src="{{product.img[1]}}">
+        </swiper-slide>
+      </swiper-container>
     </div>
+
     <div class="price">
         <p id="price">
-          precio: <br>
-          10.000
+          Precio: <br>
+          ${{product.precio}}
         </p>
         <p id="stok">
-          disponibles: <br>
-          20
+          Disponibles: <br>
+          {{product.cantidad}}
         </p>
   </div>
 
     <h1>
-      platano
+      {{product.nombre}}
     </h1>
 
     </div>
@@ -39,44 +47,92 @@
 <ion-list>
   <ion-item>
     <ion-label>
-      <p>descripcion</p>
-      <h2>los mejores platanos, produccion 100% organico</h2>
+      <p>Descripcion</p>
+      <h2>{{product.descripcion}}</h2>
     </ion-label>
   </ion-item>
 
   <ion-item>
     <ion-label>
-      <p>categoria</p>
-      <h2>comestibles</h2>
+      <p>Categoria</p>
+      <h2>{{product.categoria}}</h2>
     </ion-label>
   </ion-item>
 
-  <ion-item>
+  <ion-item *ngIf="seller != null">
     <ion-label>
-      <p>vendedor</p>
-      <h2>granja el pollon</h2>
+      <p>Vendedor</p>
+      <h2>{{seller.nombreEmpresa}}</h2>
     </ion-label>
     <ion-label>
-      <p>ubicacion</p>
-      <h2>vereda villanueva</h2>
+      <p>Ubicacion</p>
+      <h2>{{seller.direccion}}</h2>
     </ion-label>
   </ion-item>
 </ion-list>
 
-<div class="div-add">
+<div class="div-add" >
+<form [formGroup]="pedidoForm">
   <div class="div-cantidad">
     <p>Cantidad</p>
       <ion-item no-lines>
         <ion-button (click)="onMinius()"><ion-icon name="remove-outline"></ion-icon></ion-button>
         <div no-lines class="div-input">
-          <ion-input value="{{cantidad}}"></ion-input>
+          <ion-input value="{{cantidad}}" formControlName="cantidad"></ion-input>
         </div>                   
         <ion-button (click)="onPlus()"><ion-icon name="add-outline"></ion-icon></ion-button>
       </ion-item>
   </div>
-  <app-input Type="text" PlaceHolder="buen dia..." Icon="send-outline" Label="Mensaje"></app-input>
 
-  <ion-button>Agregar al carrito</ion-button>
+    <ion-item>
+      <ion-select label="¿Quieres que un repartidor te lleve tu pedido a domicilio?" label-placement="floating" formControlName="delivery">
+        <ion-select-option value="si">Sí, por favor.</ion-select-option>
+        <ion-select-option value="no">No, gracias. Lo recogeré en la tienda.</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item (click)="addDirection()">
+      <ion-label class="normal">
+         Mi Ubicacion
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button>
+          cambiar
+             <ion-icon slot="icon-only" color="danger" name="location"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+
+ <ion-item>
+  <ion-input type="text" placeholder="Buen dia.." label="Mesaje al vendedor" labelPlacement="stacked" formControlName="message">
+    <ion-icon name="send" slot="end"></ion-icon>
+  </ion-input>
+ </ion-item> 
+
+  <ion-button (click)="initGoogle()">Terminar el pedido</ion-button>
+</form>
+
 </div>
+
+<ion-modal trigger="openModal" [initialBreakpoint]="1" [breakpoints]="[0, 1]" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <div id="block">
+      <ion-toolbar>
+        <ion-title><br>¿Está listo para finalizar <br> su compra?<br> <br>
+          El precio total es de 
+          <b>${{total}}</b><br></ion-title>
+      </ion-toolbar>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<ion-toast
+[ngStyle]="{'color':'#fe0000','--background':'#ffffff'}"
+[isOpen]="isToastOpen"
+message="¡Atención! Algunos campos obligatorios están vacíos."
+[duration]="10000"
+(didDismiss)="setOpen(false)"
+></ion-toast>
 
 </ion-content>

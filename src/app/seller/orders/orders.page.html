@@ -9,7 +9,7 @@
   <div id="header">
     <div class="div-redondeado">
 
-      <h1>¡Tienes <br> {{ordesrTotal}} <br> pedidos sin atender!</h1>
+      <h1 *ngIf="ordersNo != null">¡Tienes <br> {{ordersNo.length}} <br> pedidos sin atender!</h1>
   
     </div>
     
@@ -21,14 +21,11 @@
           </div>
         </ion-item>
 
-        <ion-item *ngFor="let p of viewOrders" lines="none" routerLink="/ordersales/:{{p.id}}">
+        <ion-item *ngFor="let p of viewOrdersNo" lines="none" routerLink="/ordersales/{{p.id}}">
           <div id="div-content">
-            <ion-avatar>
-              <ion-img src="{{p.img}}"></ion-img>
-            </ion-avatar>
-            <ion-label>{{p.name}} <br> cantidad: {{p.id}} <br> estado: </ion-label>
+            <ion-label>{{p.descripcion}} <br> Domicilio: {{p.domicilio}} <br> Fecha: {{p.fecha}}</ion-label>
             <div id="div-circle">
-              <ion-label>pedios <br>{{p.id}}</ion-label>
+              <ion-label>Cantidad <br>{{p.cantidad}}</ion-label>
             </div>
           </div>
         </ion-item>

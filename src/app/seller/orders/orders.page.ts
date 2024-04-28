@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AutenticationService } from 'app/service/autentication.service';
+import { ProductService } from '../../service/product.service';
+import { PedidoService } from '../../service/pedido.service';
+import { Pedido } from 'app/models/interfacePedido';
 
 @Component({
   selector: 'app-orders',
@@ -7,9 +10,10 @@ import { AutenticationService } from 'app/service/autentication.service';
   styleUrls: ['./orders.page.scss'],
 })
 export class OrdersPage implements OnInit {
+  ordersNo : Pedido[] = null
 
   constructor(
-   
+   public PedidoService:PedidoService,
   ) { }
 
   public orders = [
@@ -36,29 +40,45 @@ export class OrdersPage implements OnInit {
     
   ];
 
-  public viewOrders = this.orders.slice(0,1)
-  public viewOrderSale = this.orders.slice(0,1)
+  public viewOrdersNo : Pedido[] 
+  public viewOrderSale : Pedido[] 
 
   public ordesrTotal = this.orders.length
 
   ngOnInit() {
-    
+    this.getNoAtent()
   }
 
   plusOrders(){
-    if(this.viewOrders.length == 1) 
-    this.viewOrders = this.orders
+    if(this.viewOrdersNo.length == 1) 
+    this.viewOrdersNo = this.ordersNo
     else 
-    this.viewOrders = this.orders.slice(0,1)
+    this.viewOrdersNo = this.ordersNo.slice(0,1)
   }
 
   plusOrdersSale(){
     if(this.viewOrderSale.length == 1)
-    this.viewOrderSale = this.orders
+    this.viewOrderSale = this.ordersNo
     else
-    this.viewOrderSale = this.orders.slice(0,1)
+    this.viewOrderSale = this.ordersNo.slice(0,1)
    }
 
 
+    
+
+   async getNoAtent(){
+    await this.PedidoService.getOrders('sin atender').then((orders)=>{
+      orders.snapshotChanges().subscribe((res)=>{
+        this.ordersNo = res.map((item)=>{
+          const odersFirebase = item.payload.doc.data() as Pedido
+          odersFirebase.id = item.payload.doc.id
+          console.log(odersFirebase);
+          
+          return odersFirebase
+        })
+        this.viewOrdersNo = this.ordersNo.slice(0,1)
+      })
+    })
+   }
 
 }

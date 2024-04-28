@@ -60,11 +60,14 @@
         <ion-icon name="cash-outline" slot="end"></ion-icon>
       </ion-input>  
     </ion-item>
-    
-    <ion-item class="ion-margin-bottom">
-      <ion-input type="Text" placeholder="comestibles" label="categoria" labelPlacement="stacked" formControlName="categoria">
-        <ion-icon name="pricetags-outline" slot="end"></ion-icon>
-      </ion-input>  
+
+    <ion-item>
+      <ion-select label="Categoria" label-placement="floating" formControlName="categoria">
+        <ion-select-option value="verduras">Verduras.</ion-select-option>
+        <ion-select-option value="frutas">Frutas.</ion-select-option>
+        <ion-select-option value="mercado">Mercado.</ion-select-option>
+        <ion-select-option value="otros">Otros.</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <ion-button expand="block" shape="round" (click)="insertDatesProduct()">publicar</ion-button>

@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { toDataURL } from 'qrcode';
@@ -13,6 +13,8 @@ import { Product } from '../../models/interfaceProduct';
 import { UserService } from '../../service/user.service';
 import { map } from 'rxjs';
 import { Seller, User } from 'app/models/interfaceUser';
+import { DOCUMENT } from '@angular/common';
+import { GooglemapsService } from 'app/googlemaps/googlemaps.service';
 
 @Component({
   selector: 'app-addproduct',
@@ -20,9 +22,10 @@ import { Seller, User } from 'app/models/interfaceUser';
   styleUrls: ['./addproduct.page.scss'],
 })
 export class AddproductPage implements OnInit {
+  openModal = "open1"
 
   @ViewChild(IonModal) modal: IonModal;
-  openModal = "open1"
+  
   isToastOpen = false;
   dataUrls: File[];
   fileNames: string[];
@@ -43,7 +46,8 @@ export class AddproductPage implements OnInit {
     public formBuilder:FormBuilder, 
     public loadingControler: LoadingController, 
     public router:Router,
-    public productService: ProductService) { }
+    public productService: ProductService,
+    ) {}
 
   ngOnInit() {
     Camera.checkPermissions()
@@ -191,5 +195,6 @@ async galeria2(){
       console.log(Error);
     })
   }
+  
 }
 

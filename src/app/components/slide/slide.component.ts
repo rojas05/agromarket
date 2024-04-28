@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import Swiper from 'swiper';
 import { register } from 'swiper/element/bundle';
 
@@ -12,6 +12,8 @@ register();
 export class SlideComponent implements OnInit{
   constructor() {}
   value = document.getElementById('mySlider')
+
+
 
   ngOnInit(): void {
     new Swiper( this.value!, {

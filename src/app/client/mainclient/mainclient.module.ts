@@ -15,7 +15,6 @@ import { SlideModule } from 'app/components/slide/slide.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SlideModule,
     MainclientPageRoutingModule,
   ],
   declarations: [MainclientPage],
